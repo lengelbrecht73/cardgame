@@ -19,12 +19,13 @@ public class FisherYates implements ShuffleAlgorithm{
 
         Card[] deckArray = cards.toArray(new Card[0]);
         Random randomNumber = new Random();
-        int cardToSwopOut = 0;
+        int cardIndexToSwopOut = 0;
         for (int n = cards.size() - 1; n > - 1; n--){
-            cardToSwopOut = randomNumber.nextInt(cards.size());
-            Card current = deckArray[n];
-            deckArray[cardToSwopOut] = current;
-            deckArray[n] = current;
+            cardIndexToSwopOut = randomNumber.nextInt(cards.size());
+            Card cardOneForSwop = deckArray[n];
+            Card cardTwoForSwop = deckArray[cardIndexToSwopOut];
+            deckArray[n] = cardTwoForSwop;
+            deckArray[cardIndexToSwopOut] = cardOneForSwop;
         }
         
         return Arrays.asList(deckArray);

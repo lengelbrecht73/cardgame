@@ -15,6 +15,7 @@
 	<description>Five card poker game - variation</description>
 	<properties>
 		<java.version>17</java.version>
+		<encoding>UTF-8</encoding>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -52,6 +53,9 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<encoding>
+						UTF-8
+					</encoding>
 				</configuration>
 			</plugin>
 		</plugins>

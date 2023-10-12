@@ -1,5 +1,8 @@
 package za.co.advance.fivecard.definition;
 
+import lombok.Getter;
+
+@Getter
 public enum Rank {
     DEUCE(2),
     THREE(3),
@@ -19,9 +22,5 @@ public enum Rank {
 
     Rank(int points) {
         this.rankPoints = points;
-    }
-
-    public int getRankPoints() {
-        return rankPoints;
     }
 }

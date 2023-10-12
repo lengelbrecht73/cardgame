@@ -1,5 +1,10 @@
 package za.co.advance.fivecard;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +21,7 @@ public class FiveCardApplication {
 	@Autowired
 	static DealerService dealerService = new DealerService();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnsupportedEncodingException {
 	
 		SpringApplication.run(FiveCardApplication.class, args);
 
@@ -35,8 +40,9 @@ public class FiveCardApplication {
 
 		Hand handDealt = dealerService.dealHand(shuffledDeck, 5);
 		System.out.println("Hand");
+		
 		for (Card card : handDealt.getCardsInHand()) {
-			System.out.println(card.getSuit() + " " + card.getRank());
+			System.out.println(card.getRank().name() + " " + card.getSuit().getSymbol());
 		}
 
 	}
