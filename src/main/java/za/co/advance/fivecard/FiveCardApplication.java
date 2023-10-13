@@ -1,51 +1,33 @@
 package za.co.advance.fivecard;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Value;
 
+import lombok.extern.slf4j.Slf4j;
 import za.co.advance.fivecard.entity.Card;
+import za.co.advance.fivecard.entity.Deck;
 import za.co.advance.fivecard.entity.Hand;
 import za.co.advance.fivecard.service.DealerService;
 
-@SpringBootApplication
+@Slf4j
 public class FiveCardApplication {
 
-	@Autowired
-	static DealerService dealerService = new DealerService();
+	DealerService dealerService = new DealerService();
 
-	public static void main(String[] args) throws UnsupportedEncodingException {
-	
-		SpringApplication.run(FiveCardApplication.class, args);
+	@Value("${variantcardgame}")
+	String variantCardGame;
 
-		for (Card card: dealerService.collectCardsInDeck(true).getDeckOfCards()){
-			System.out.println(card.getSuit().getDescription());
-
-			if (card.getRank() != null){
-				System.out.println(card.getRank().name());
-			}
-		}
-
-		List<Card> shuffledDeck = dealerService.shuffleDeck(dealerService.collectCardsInDeck(false));
-		for (Card card : shuffledDeck) {
-			System.out.println(card.getSuit() + " " + card.getRank());
-		}
-
-		Hand handDealt = dealerService.dealHand(shuffledDeck, 5);
-		System.out.println("Hand");
+	public void fiveCardGame(String variant){
+		//We don't use joker cards in this specific game
+		boolean includeJokerCards = false;
+		log.debug("Do we need the joker card?: " + includeJokerCards );
 		
-		for (Card card : handDealt.getCardsInHand()) {
-			System.out.println(card.getRank().name() + " " + card.getSuit().getSymbol());
-		}
-
+		Deck cardsInDeck = dealerService.collectCardsInDeck(includeJokerCards);
+		List<Card> shuffledDeck = dealerService.shuffleDeck(cardsInDeck);
+		
+		Hand handDealt = dealerService.dealHand(shuffledDeck, 5);
+		
 	}
-
 }
 

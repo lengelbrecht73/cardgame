@@ -4,10 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import za.co.advance.fivecard.algorithms.FisherYates;
+import za.co.advance.fivecard.algorithms.FisherYatesShuffle;
 import za.co.advance.fivecard.definition.Rank;
 import za.co.advance.fivecard.definition.Suit;
 import za.co.advance.fivecard.entity.Card;
@@ -19,21 +20,23 @@ import za.co.advance.fivecard.entity.Hand;
 public class DealerService {
     
     public Deck collectCardsInDeck(boolean includeJokerCards){
-        
+     
+        log.debug("\n\n\n\nThe deck of cards before being shuffled:");
+
         //The cards is probably not sorted as it is a popular game. ;-) 
         List<Suit> allSuitsInDeck = Arrays.asList(Suit.values());
         List<Rank> allRanksInDeck = Arrays.asList(Rank.values());
 
-        log.info("The number of suits in a deck of cards: " + allSuitsInDeck.size());
-        log.info("The number of ranks in a deck of cards: " + allRanksInDeck.size());
+        log.debug("The number of suits in a standard deck of cards: " + allSuitsInDeck.size());
+        log.debug("The number of ranks in a standard deck of cards: " + allRanksInDeck.size());
 
         //Get the number of cards in the deck, without taking the joker cards in consideration
         int numberofCardsInDeck = (allSuitsInDeck.size() - 1) * (allRanksInDeck.size());
-        log.info("The number of cards in a deck without the JOKERS: " + numberofCardsInDeck);
+        log.debug("The number of cards in a deck without the JOKERS: " + numberofCardsInDeck);
 
          //There are 2 jokers in a standard set and One is already included
         if (includeJokerCards) numberofCardsInDeck = numberofCardsInDeck + 2; 
-        log.info("The number of cards in deck taking into consideration if we need the 2 JOKERS " + numberofCardsInDeck);
+        log.debug("The number of cards in deck taking into consideration if we need the 2 JOKERS " + numberofCardsInDeck);
 
         Deck deckOfCards = new Deck();
 
@@ -44,41 +47,56 @@ public class DealerService {
 
         for (Suit suit: allSuitsInDeck){
             for (Rank rank: allRanksInDeck){
-                //Don't add the JOKER cards to the deck just yet
-                cardNumber = addCardOfSuitAndRankExludingJokers(cards, cardNumber, suit, rank);
+                //Add cards
+                cardNumber = addCardOfSuitAndRank(cards, cardNumber, suit, rank, includeJokerCards);
             }         
         }
 
         if (includeJokerCards){
             Card jokerCard = new Card();
             jokerCard.setSuit(Suit.JOKER);
+            jokerCard.setRank(null);
             //jokerCard is assumed to not have a rank - for now anycase
 
             //There are usually TWO jokerCards
             cards[cardNumber++] = jokerCard;
-            cards[cardNumber++] = jokerCard;
         }
         
         deckOfCards.setDeckOfCards(Arrays.asList(cards));
-
+        for (Card card: deckOfCards.getDeckOfCards()){
+			if (card.getRank() != null){
+				log.debug(card.getSuit().getDescription() + " " + card.getRank().name());
+			}
+		}
         return deckOfCards;
     }
 
     public List<Card> shuffleDeck(Deck deck){
-        FisherYates shuffleAlgorithm =  new FisherYates();
-        return shuffleAlgorithm.shuffle(deck.getDeckOfCards());
+        FisherYatesShuffle shuffleAlgorithm =  new FisherYatesShuffle();
+        log.debug("\n\n\n\nThe deck of cards after being shuffled:");
+		List<Card> shuffledDeck = shuffleAlgorithm.shuffle(deck.getDeckOfCards());
+		for (Card card : shuffledDeck) {
+			log.debug(card.getSuit().getDescription() + " " + card.getRank().name());
+		}
+        return shuffledDeck;
     }
 
     public Hand dealHand(List<Card> shuffledDeck, int numberOfCards){
-        List<Card> firstFive = shuffledDeck.stream()
+        List<Card> drawCards = shuffledDeck.stream()
                 .limit(numberOfCards)
                 .collect(Collectors.toList());
-        return new Hand(firstFive, 5);
+        
+        System.out.println("\n\n\n\nHand dealt");
+        Hand handDealt = new Hand(drawCards, numberOfCards);
+		for (Card card : handDealt.getCardsInHand()) {
+			System.out.print(card.getRank().name() + " of " + card.getSuit().getDescription() + ",");
+		}	
+        return handDealt;
     }
     
-    private int addCardOfSuitAndRankExludingJokers(Card[] cards, int cardNumber, Suit suit, Rank rank) {
+    private int addCardOfSuitAndRank(Card[] cards, int cardNumber, Suit suit, Rank rank, boolean includeJokerCards) {
        
-        if (!suit.equals(Suit.JOKER)){
+        if (!includeJokerCards && !suit.equals(Suit.JOKER)){
             Card card = new Card();
             card.setSuit(suit);
             card.setRank(rank);
