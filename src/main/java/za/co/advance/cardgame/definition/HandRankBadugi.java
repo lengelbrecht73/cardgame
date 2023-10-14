@@ -1,14 +1,16 @@
 package za.co.advance.cardgame.definition;
 
-public enum WinningHandFiveCards implements WinningHand {
+//Still to be implemented in version 2
+public enum HandRankBadugi implements HandRank {
 
-    ROYAL_FLUSH("Royal Flush", "Consists of a 10, Jack, Queen, King, and Ace of the same Suit.", 1);
+    //None, as it is not yet required to be implemented
+    NONE("NONE", "None", 1);
 
     private final String hand;
     private final String description;
     private final int winningOrder;
 
-    WinningHandFiveCards(String hand, String description, int winningOrder) {
+    HandRankBadugi(String hand, String description, int winningOrder) {
         this.hand = hand;
         this.description = description;
         this.winningOrder = winningOrder;

@@ -2,6 +2,9 @@ package za.co.advance.cardgame;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import za.co.advance.cardgame.algorithms.FiveCardRankAlgorithm;
+import za.co.advance.cardgame.definition.GameVariant;
+import za.co.advance.cardgame.definition.HandRank;
 import za.co.advance.cardgame.entity.Card;
 import za.co.advance.cardgame.entity.Deck;
 import za.co.advance.cardgame.entity.Hand;
@@ -17,11 +20,19 @@ public class FiveCardApplication {
 		boolean includeJokerCards = false;
 		log.debug("Do we need the joker card?: " + includeJokerCards );
 		
+		//Get the cards from the pack and shuffle them
 		Deck cardsInDeck = dealerService.collectCardsInDeck(includeJokerCards);
 		List<Card> shuffledDeck = dealerService.shuffleDeck(cardsInDeck);
 		
-		Hand handDealt = dealerService.dealHand(shuffledDeck, 5);
+		//Deal the hand to the player
+		Hand handDealt = dealerService.dealHand(shuffledDeck, GameVariant.FIVECARD.getNumberofCards());
+		log.debug("HandDealt: " + handDealt.toString() );
 		
+		//Determine his highest hand rank
+		FiveCardRankAlgorithm rankAlgorithm = new FiveCardRankAlgorithm();
+		HandRank highestHandRank = rankAlgorithm.determineHighestPokerRank(handDealt);
+		log.debug("Highest hand rank: " + highestHandRank.getHand());
+		System.out.println("Highest hand rank: " + highestHandRank.getHand() +  " with a rank score of " + highestHandRank.getDescription());
 	}
 }
 

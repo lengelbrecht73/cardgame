@@ -10,7 +10,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Hand {
-    public Hand() {
+    
+    Hand() {
     }
     private List<Card> cardsInHand;
     private int numberofCardsInHand;
