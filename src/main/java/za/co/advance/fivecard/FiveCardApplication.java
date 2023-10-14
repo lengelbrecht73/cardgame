@@ -1,9 +1,6 @@
 package za.co.advance.fivecard;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Value;
-
 import lombok.extern.slf4j.Slf4j;
 import za.co.advance.fivecard.entity.Card;
 import za.co.advance.fivecard.entity.Deck;
@@ -15,10 +12,7 @@ public class FiveCardApplication {
 
 	DealerService dealerService = new DealerService();
 
-	@Value("${variantcardgame}")
-	String variantCardGame;
-
-	public void fiveCardGame(String variant){
+	public void fiveCardGame(){
 		//We don't use joker cards in this specific game
 		boolean includeJokerCards = false;
 		log.debug("Do we need the joker card?: " + includeJokerCards );
