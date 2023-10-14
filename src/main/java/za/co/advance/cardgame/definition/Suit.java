@@ -1,4 +1,4 @@
-package za.co.advance.fivecard.definition;
+package za.co.advance.cardgame.definition;
 
 import lombok.Getter;
 import lombok.Setter;

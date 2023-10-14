@@ -1,9 +1,9 @@
-package za.co.advance.fivecard;
+package za.co.advance.cardgame;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import za.co.advance.fivecard.definition.GameVariant;
+
+import za.co.advance.cardgame.definition.GameVariant;
 
 @SpringBootApplication
 public class CardGameApplication {
@@ -31,6 +31,7 @@ public class CardGameApplication {
 		} else{
 			SpringApplication.run(CardGameApplication.class, args);
 			fiveCardGame.fiveCardGame();
+			System.out.println("\n\n\n\n");
 		}
 	}
 

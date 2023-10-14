@@ -1,10 +1,10 @@
-package za.co.advance.fivecard.algorithms;
+package za.co.advance.cardgame.algorithms;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import za.co.advance.fivecard.entity.Card;
+import za.co.advance.cardgame.entity.Card;
 
 /** FisherYates shuffle is a knowm algorithm for shuffling cards. Also known as the Knuth shuffle
  How it works:

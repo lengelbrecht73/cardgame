@@ -1,4 +1,4 @@
-package za.co.advance.fivecard.entity;
+package za.co.advance.cardgame.entity;
 
 import java.util.ArrayList;
 import java.util.List;

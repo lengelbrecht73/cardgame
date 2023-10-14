@@ -1,11 +1,11 @@
-package za.co.advance.fivecard.algorithms;
+package za.co.advance.cardgame.algorithms;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import za.co.advance.fivecard.entity.Card;
+import za.co.advance.cardgame.entity.Card;
 
 /** 
  * Using Collections.shuffle() could be an alternative

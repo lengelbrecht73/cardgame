@@ -1,4 +1,4 @@
-package za.co.advance.fivecard.service;
+package za.co.advance.cardgame.service;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import za.co.advance.fivecard.algorithms.FisherYatesShuffle;
-import za.co.advance.fivecard.definition.Rank;
-import za.co.advance.fivecard.definition.Suit;
-import za.co.advance.fivecard.entity.Card;
-import za.co.advance.fivecard.entity.Deck;
-import za.co.advance.fivecard.entity.Hand;
+import za.co.advance.cardgame.algorithms.FisherYatesShuffle;
+import za.co.advance.cardgame.definition.Rank;
+import za.co.advance.cardgame.definition.Suit;
+import za.co.advance.cardgame.entity.Card;
+import za.co.advance.cardgame.entity.Deck;
+import za.co.advance.cardgame.entity.Hand;
 
 @Service
 @Slf4j

@@ -1,4 +1,4 @@
-package za.co.advance.fivecard.entity;
+package za.co.advance.cardgame.entity;
 
 import java.util.List;
 
@@ -10,6 +10,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Hand {
+    public Hand() {
+    }
     private List<Card> cardsInHand;
     private int numberofCardsInHand;
 }

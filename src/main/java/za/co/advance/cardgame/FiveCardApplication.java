@@ -1,11 +1,11 @@
-package za.co.advance.fivecard;
+package za.co.advance.cardgame;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import za.co.advance.fivecard.entity.Card;
-import za.co.advance.fivecard.entity.Deck;
-import za.co.advance.fivecard.entity.Hand;
-import za.co.advance.fivecard.service.DealerService;
+import za.co.advance.cardgame.entity.Card;
+import za.co.advance.cardgame.entity.Deck;
+import za.co.advance.cardgame.entity.Hand;
+import za.co.advance.cardgame.service.DealerService;
 
 @Slf4j
 public class FiveCardApplication {

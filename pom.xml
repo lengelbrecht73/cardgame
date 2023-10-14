@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>za.co.advance</groupId>
-	<artifactId>five-card</artifactId>
+	<artifactId>cardgame</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>five-card</name>
-	<description>Five card poker game - variation</description>
+	<name>cardgame</name>
+	<description>Poker card game variations</description>
 	<properties>
 		<java.version>17</java.version>
 		<encoding>UTF-8</encoding>

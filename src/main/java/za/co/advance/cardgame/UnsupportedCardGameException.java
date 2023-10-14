@@ -1,4 +1,4 @@
-package za.co.advance.fivecard;
+package za.co.advance.cardgame;
 
 public class UnsupportedCardGameException extends Exception {
     
