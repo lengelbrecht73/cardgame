@@ -2,7 +2,7 @@ package za.co.advance.cardgame;
 
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import za.co.advance.cardgame.algorithms.FiveCardRankAlgorithm;
+import za.co.advance.cardgame.algorithm.FiveCardRankAlgorithm;
 import za.co.advance.cardgame.definition.GameVariant;
 import za.co.advance.cardgame.definition.HandRank;
 import za.co.advance.cardgame.entity.Card;

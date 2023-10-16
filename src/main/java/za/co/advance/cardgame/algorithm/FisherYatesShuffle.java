@@ -1,4 +1,4 @@
-package za.co.advance.cardgame.algorithms;
+package za.co.advance.cardgame.algorithm;
 
 import java.util.Arrays;
 import java.util.List;

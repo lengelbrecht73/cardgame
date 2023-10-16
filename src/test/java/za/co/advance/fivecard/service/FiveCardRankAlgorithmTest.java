@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
-import za.co.advance.cardgame.algorithms.FiveCardRankAlgorithm;
+import za.co.advance.cardgame.algorithm.FiveCardRankAlgorithm;
 import za.co.advance.cardgame.definition.HandRank;
 import za.co.advance.cardgame.definition.HandRankFiveCard;
 import za.co.advance.cardgame.definition.Rank;

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
-import za.co.advance.cardgame.algorithms.FisherYatesShuffle;
+import za.co.advance.cardgame.algorithm.FisherYatesShuffle;
 import za.co.advance.cardgame.definition.Rank;
 import za.co.advance.cardgame.definition.Suit;
 import za.co.advance.cardgame.entity.Card;
