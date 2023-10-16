@@ -36,36 +36,43 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
  
        //Let's sort the cards once
        //Initiliase the private variables for re-use in the logic
-       try {
+        try {
             initialisePrivateVariablesForReuse(hand);
         } catch (MoreThanTwoOfSameRankException e) {
-            e.printStackTrace();
+            log.debug("There are more than two pairs!");
+            System.out.println("There are more than two pairs, which is impossible");
+  
         }       
+       //Determine the Highest Poker hand and return
+       return determinePokerHand();  
+    }
 
-       //The order of checking is important. A four of a kind
-       //could give a two pair as well, but a two pair could not be a four
-       //of a kind.
-       //A lot of if statements, might refactor at a later stage. 
-       if (sameSuit && inOrder){
-            return HandRankFiveCard.STRAIGHT_FLUSH;
-       }else if (fourOfRank){
-            return HandRankFiveCard.FOUR_OF_A_KIND;
-       }else if (onceTwoOfRank && threeOfRank){
-            return HandRankFiveCard.FULL_HOUSE;
-       }else if (sameSuit && !inOrder){
-            return HandRankFiveCard.FLUSH;
-       }else if (inOrder && !sameSuit){
-            return HandRankFiveCard.STRAIGHT;
-       }else if (threeOfRank && !onceTwoOfRank){
-            return HandRankFiveCard.THREE_OF_A_KIND;
-       }else if (twiceTwoOfRank){
-            return HandRankFiveCard.TWO_PAIR;
-       }else if (onceTwoOfRank && !threeOfRank){
-            return HandRankFiveCard.ONE_PAIR;
-       }
-       else{
-            return HandRankFiveCard.HIGH_CARDS;
-       }  
+    private HandRank determinePokerHand() {
+
+        //The order of checking is important. A four of a kind
+        //could give a two pair as well, but a two pair could not be a four
+        //of a kind.
+        //A lot of if statements, might refactor at a later stage. 
+        if (sameSuit && inOrder){
+                return HandRankFiveCard.STRAIGHT_FLUSH;
+           }else if (fourOfRank){
+                return HandRankFiveCard.FOUR_OF_A_KIND;
+           }else if (onceTwoOfRank && threeOfRank){
+                return HandRankFiveCard.FULL_HOUSE;
+           }else if (sameSuit && !inOrder){    //!inOrder could be removed it will be true at this point, but that will cost readability
+                return HandRankFiveCard.FLUSH;
+           }else if (inOrder && !sameSuit){    //!sameSuit could also be removed
+                return HandRankFiveCard.STRAIGHT;
+           }else if (threeOfRank && !onceTwoOfRank){  //!onceTwoOfRank could also be removed
+                return HandRankFiveCard.THREE_OF_A_KIND;
+           }else if (twiceTwoOfRank){
+                return HandRankFiveCard.TWO_PAIR;
+           }else if (onceTwoOfRank && !threeOfRank){  //!threeOfRank could also be removed
+                return HandRankFiveCard.ONE_PAIR;
+           }
+           else{
+                return HandRankFiveCard.HIGH_CARDS;
+           }
     }
 
     private boolean isSameSuit(Hand hand){
@@ -74,7 +81,6 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
         Suit suitOfCard = hand.getCardsInHand().get(0).getSuit();
         
         for (Card card: hand.getCardsInHand()){
-
             if (!card.getSuit().equals(suitOfCard)){
                 log.debug("The cards are not of the same suit.");
                 return false;
@@ -93,8 +99,7 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
         // Will refactor at a later stage
         for (int i = 0; i < cardsInHand.size() - 1; i++) {
             Card currentCard = cardsInHand.get(i);
-            int j = i + 1;
-            Card nextCard = cardsInHand.get(j);
+            Card nextCard = cardsInHand.get(i + 1);
             
             if (currentCard.getRank().getOrder() != nextCard.getRank().getOrder() - 1) {
                 isInOrder = false;
@@ -106,7 +111,6 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
                 }
             }           
         }
-
         return isInOrder;
     }
 
@@ -130,17 +134,22 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
         inOrder = isInOrder(hand.getCardsInHand()); 
 
         int numberOfTwoRank = 0;
-        for (Entry<String, Integer> rank: numberOfKindMap.entrySet()){
-            if (rank.getValue() == 4){
-                fourOfRank = true;
-            }else if (rank.getValue() == 3){
-                 threeOfRank = true;
-            }else if (rank.getValue() == 2){
-                numberOfTwoRank = numberOfTwoRank + 1;
+        for (Entry<String, Integer> rank : numberOfKindMap.entrySet()) {
+            switch (rank.getValue()) {
+                case 4:
+                    fourOfRank = true;
+                    break;
+                case 3:
+                    threeOfRank = true;
+                    break;
+                case 2:
+                    numberOfTwoRank++;
+                    break;
+                default:
+                    break;    
             }
-           
         }
-
+        
         //Is there one double?
         if (numberOfTwoRank == 1){
             onceTwoOfRank = true;

@@ -81,11 +81,15 @@ public class DealerService {
                 .limit(numberOfCards)
                 .collect(Collectors.toList());
         
-        System.out.println("\n\n\n\nHand dealt");
+        System.out.println("\n\n\n\nHand dealt:");
         Hand handDealt = new Hand(drawCards, numberOfCards);
-        System.out.println(handDealt.getNumberofCardsInHand());
+
+        //Could be printing the values card.getSuit.getSymbol for the specific
+        //Poker card symbols, but it could misbehave on certain console outputs.
+        //Since there seems to be plans for a web based version, it could be better
+        //implemented in HTML in the future.
 		for (Card card : handDealt.getCardsInHand()) {
-			System.out.print(card.getRank().name() + " of " + card.getSuit().getDescription() + ",");
+			System.out.println(card.getRank().name() + " of " + card.getSuit().getDescription());
 		}	
         return handDealt;
     }

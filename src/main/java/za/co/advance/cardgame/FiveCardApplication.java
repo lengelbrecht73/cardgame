@@ -23,6 +23,7 @@ public class FiveCardApplication {
 		
 		//Get the cards from the pack and shuffle them
 		Deck cardsInDeck = dealerService.collectCardsInDeck(includeJokerCards);
+		System.out.println("Shuffling ... Shuffling ... Shuffling");
 		List<Card> shuffledDeck = dealerService.shuffleDeck(cardsInDeck);
 		
 		//Deal the hand to the player
@@ -33,7 +34,7 @@ public class FiveCardApplication {
 		FiveCardRankAlgorithm rankAlgorithm = new FiveCardRankAlgorithm();
 		HandRank highestHandRank = rankAlgorithm.determineHighestPokerRank(handDealt);
 		log.debug("Highest hand rank: " + highestHandRank.getHand());
-		System.out.println("Highest hand rank: " + highestHandRank.getHand() +  " with a rank score of " + highestHandRank.getWinningOrder());
+		System.out.println("\n Highest hand rank: " + highestHandRank.getHand() +  " with a rank score of " + highestHandRank.getWinningOrder() + ".");
 	}
 }
 

@@ -13,6 +13,7 @@ public class Hand {
     
     Hand() {
     }
+    
     private List<Card> cardsInHand;
     private int numberofCardsInHand;
 }

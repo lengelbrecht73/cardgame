@@ -1,18 +1,17 @@
 package za.co.advance.cardgame.definition;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public enum Suit {
 
     CLUBS("C", "Clubs", '\u2663'),
-    DIAMONDS("D", "Diamonds", '\u1234'),
-    HEARTS("H", "Hearts", '\u2660'),
+    DIAMONDS("D", "Diamonds", '\u2666'),
+    HEARTS("H", "Hearts", '\u2665'),
     SPADES("S", "Spades", '\u2660'),
     //If we later want to use the enum/software for a different card game, 
     // requiring a joker card 
-    JOKER("J", "JOKER", '\u2660');  
+    JOKER("J", "JOKER", '\u263A');  
  
     private final String letter;
     private final String description;

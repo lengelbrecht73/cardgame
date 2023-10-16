@@ -14,6 +14,7 @@ public class CardGameApplication {
 
 	public static void main(String[] args) throws MoreThanTwoOfSameRankException{
 	
+		//Specify the variant to be played
 		if (args.length == 0) {
 			System.out.println("Please provide the required argument to specify the game variant.");
 			return;
@@ -26,10 +27,10 @@ public class CardGameApplication {
 			Enum.valueOf(GameVariant.class,args[0]);
 		}catch (IllegalArgumentException ex){
 			System.out.println("Your game variant is not known to us.");
-			System.out.println("Please try one of the following:");
-			Arrays.toString(GameVariant.values());
+			System.out.println("Please try one of the following: FIVECARD.");
 		}
-
+      
+		//Give informational message when BADUGI is selected, else start the five card version
 		if(Enum.valueOf(GameVariant.class,args[0]).equals(GameVariant.BADUGI)){
 			System.out.println("The Badugi game will soon be implemented. Please come back soon.");
 		} else{
