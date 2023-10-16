@@ -50,9 +50,7 @@ public class DealerService {
         }
 
         if (includeJokerCards){
-            Card jokerCard = new Card();
-            jokerCard.setSuit(Suit.JOKER);
-            jokerCard.setRank(null);
+            Card jokerCard = new Card(Suit.JOKER, null);
             //jokerCard is assumed to not have a rank - for now anycase
 
             //There are usually TWO jokerCards
@@ -85,6 +83,7 @@ public class DealerService {
         
         System.out.println("\n\n\n\nHand dealt");
         Hand handDealt = new Hand(drawCards, numberOfCards);
+        System.out.println(handDealt.getNumberofCardsInHand());
 		for (Card card : handDealt.getCardsInHand()) {
 			System.out.print(card.getRank().name() + " of " + card.getSuit().getDescription() + ",");
 		}	
@@ -94,9 +93,7 @@ public class DealerService {
     private int addCardOfSuitAndRank(Card[] cards, int cardNumber, Suit suit, Rank rank, boolean includeJokerCards) {
        
         if (!includeJokerCards && !suit.equals(Suit.JOKER)){
-            Card card = new Card();
-            card.setSuit(suit);
-            card.setRank(rank);
+            Card card = new Card(suit, rank);
             cards[cardNumber] = card;
             cardNumber++;
         }

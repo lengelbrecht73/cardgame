@@ -16,66 +16,56 @@ import za.co.advance.cardgame.definition.Rank;
 import za.co.advance.cardgame.definition.Suit;
 import za.co.advance.cardgame.entity.Card;
 import za.co.advance.cardgame.entity.Hand;
+import za.co.advance.cardgame.exception.MoreThanTwoOfSameRankException;
 
 @Slf4j
 @Getter
 public class FiveCardRankAlgorithm implements HandRankAlgorithm{
 
     private Map<String,Integer> numberOfKindMap = new HashMap<>(); 
-    private boolean sameSuit;
-    private boolean inOrder;
+    private boolean sameSuit = false; // For instance all hearts
+    private boolean inOrder = false;  // For instance Duece, Three, Four, Five, Six
+    private boolean fourOfRank = false;
+    private boolean threeOfRank = false; //For instance Three of Hearts, Three of Spades and Three of Diamonds
+    private boolean twiceTwoOfRank = false; // For instance 2 Three of Hearts and 2 Four of Spades 
+    private boolean onceTwoOfRank = false;  // For instance 3 Five of Spades
     private List<Card> cardsInHand = new ArrayList<>();
-    /*private int numberOfAcesInHand = 0;
-    private int numberOfDueceInHand = 0; 
-    private int numberOfThreeInHand = 0; 
-    private int numberOfFourInHand = 0; 
-    private int numberOfFiveInHand = 0; 
-    private int numberOfSixInHand = 0; 
-    private int numberOfSevenInHand = 0; 
-    private int numberOfEightInHand = 0; 
-    private int numberOfNineInHand = 0; 
-    private int numberOfTenInHand = 0; 
-    private int numberOfJackInHand = 0;
-    private int numberOfQueenInHand = 0;
-    private int numberOfKingInHand = 0;
-    */
 
     @Override
     public HandRank determineHighestPokerRank(Hand hand) {
  
-       //Lets sort the cards once
+       //Let's sort the cards once
        //Initiliase the private variables for re-use in the logic
-       initialisePrivateVariablesForReuse(hand);       
-       //Check for ROYAL_FLUSH
-       if (isRoyalFlush(cardsInHand)){
-            return HandRankFiveCard.FULL_HOUSE;
-       }else if (isFourOfAKind()){
+       try {
+            initialisePrivateVariablesForReuse(hand);
+        } catch (MoreThanTwoOfSameRankException e) {
+            e.printStackTrace();
+        }       
+
+       //The order of checking is important. A four of a kind
+       //could give a two pair as well, but a two pair could not be a four
+       //of a kind.
+       //A lot of if statements, might refactor at a later stage. 
+       if (sameSuit && inOrder){
+            return HandRankFiveCard.STRAIGHT_FLUSH;
+       }else if (fourOfRank){
             return HandRankFiveCard.FOUR_OF_A_KIND;
-       }else{
+       }else if (onceTwoOfRank && threeOfRank){
+            return HandRankFiveCard.FULL_HOUSE;
+       }else if (sameSuit && !inOrder){
+            return HandRankFiveCard.FLUSH;
+       }else if (inOrder && !sameSuit){
+            return HandRankFiveCard.STRAIGHT;
+       }else if (threeOfRank && !onceTwoOfRank){
+            return HandRankFiveCard.THREE_OF_A_KIND;
+       }else if (twiceTwoOfRank){
+            return HandRankFiveCard.TWO_PAIR;
+       }else if (onceTwoOfRank && !threeOfRank){
+            return HandRankFiveCard.ONE_PAIR;
+       }
+       else{
             return HandRankFiveCard.HIGH_CARDS;
        }  
-    }
-
-    private boolean isRoyalFlush(List<Card> cardsInHand){
-        if (sameSuit && inOrder){
-           Card firstCard = cardsInHand.get(0);
-           Card lastCard = cardsInHand.get(cardsInHand.size() - 1);
-
-           if(firstCard.getRank().getOrder() == 10 && lastCard.getRank().getOrder() == 14) {
-                return true;
-           }
-       } 
-       return false;
-    }
-
-    private boolean isFourOfAKind(){
-        for (Entry<String, Integer> rank: numberOfKindMap.entrySet()){
-            System.out.println(rank.getKey() + rank.getValue());
-                if (rank.getValue() == 4){
-                    return true;
-                }  
-          }
-       return false;
     }
 
     private boolean isSameSuit(Hand hand){
@@ -103,8 +93,9 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
         // Will refactor at a later stage
         for (int i = 0; i < cardsInHand.size() - 1; i++) {
             Card currentCard = cardsInHand.get(i);
-            Card nextCard = cardsInHand.get(i + 1);
-
+            int j = i + 1;
+            Card nextCard = cardsInHand.get(j);
+            
             if (currentCard.getRank().getOrder() != nextCard.getRank().getOrder() - 1) {
                 isInOrder = false;
             } else {
@@ -113,24 +104,54 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
                         && (nextCard.getRank().getOrder() == Rank.DEUCE.getOrder())) {
                     isInOrder = true;
                 }
-            }
-            String currentRankName = currentCard.getRank().getName();
-            numberOfKindMap.put(currentRankName, numberOfKindMap.get(currentRankName) + 1);
+            }           
         }
 
         return isInOrder;
     }
 
     //These values in this methods can be re-used without having to check for them for every hand evaluation.
-    private void initialisePrivateVariablesForReuse(Hand hand){
+    private void initialisePrivateVariablesForReuse(Hand hand) throws MoreThanTwoOfSameRankException{
+
+        for (Rank rank: Rank.values()){
+            numberOfKindMap.put(rank.getName(), 0);    
+        }
 
         cardsInHand = hand.getCardsInHand();
         Collections.sort(cardsInHand, Comparator.comparingInt(card -> card.getRank().getOrder()));
         for (Rank rank: Rank.values()){
-            numberOfKindMap.put(rank.getName(), 0);
+            for (Card card : cardsInHand){
+                if (card.getRank().getName().equals(rank.getName())){
+                    numberOfKindMap.put(rank.getName(),  numberOfKindMap.get(rank.getName()) + 1);
+                }
+            }
         }
-
         sameSuit = isSameSuit(hand);
         inOrder = isInOrder(hand.getCardsInHand()); 
+
+        int numberOfTwoRank = 0;
+        for (Entry<String, Integer> rank: numberOfKindMap.entrySet()){
+            if (rank.getValue() == 4){
+                fourOfRank = true;
+            }else if (rank.getValue() == 3){
+                 threeOfRank = true;
+            }else if (rank.getValue() == 2){
+                numberOfTwoRank = numberOfTwoRank + 1;
+            }
+           
+        }
+
+        //Is there one double?
+        if (numberOfTwoRank == 1){
+            onceTwoOfRank = true;
+        }
+        //Is there two double?
+        else if (numberOfTwoRank == 2){
+           twiceTwoOfRank = true;
+        }
+        // I smell a cheater
+        else if (numberOfTwoRank > 2){
+            throw new MoreThanTwoOfSameRankException();
+        }
     }
 }

@@ -1,9 +1,9 @@
-package za.co.advance.cardgame;
+package za.co.advance.cardgame.exception;
 
 public class UnsupportedCardGameException extends Exception {
     
     public UnsupportedCardGameException(){
-        super("You tried to play an unsupperted card game!");
+        super("You tried to play an unsupported card game!");
     }
 
     public UnsupportedCardGameException(String message){

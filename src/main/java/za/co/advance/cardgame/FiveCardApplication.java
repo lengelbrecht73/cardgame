@@ -8,6 +8,7 @@ import za.co.advance.cardgame.definition.HandRank;
 import za.co.advance.cardgame.entity.Card;
 import za.co.advance.cardgame.entity.Deck;
 import za.co.advance.cardgame.entity.Hand;
+import za.co.advance.cardgame.exception.MoreThanTwoOfSameRankException;
 import za.co.advance.cardgame.service.DealerService;
 
 @Slf4j
@@ -15,7 +16,7 @@ public class FiveCardApplication {
 
 	DealerService dealerService = new DealerService();
 
-	public void fiveCardGame(){
+	public void fiveCardGame() throws MoreThanTwoOfSameRankException{
 		//We don't use joker cards in this specific game
 		boolean includeJokerCards = false;
 		log.debug("Do we need the joker card?: " + includeJokerCards );
@@ -32,7 +33,7 @@ public class FiveCardApplication {
 		FiveCardRankAlgorithm rankAlgorithm = new FiveCardRankAlgorithm();
 		HandRank highestHandRank = rankAlgorithm.determineHighestPokerRank(handDealt);
 		log.debug("Highest hand rank: " + highestHandRank.getHand());
-		System.out.println("Highest hand rank: " + highestHandRank.getHand() +  " with a rank score of " + highestHandRank.getDescription());
+		System.out.println("Highest hand rank: " + highestHandRank.getHand() +  " with a rank score of " + highestHandRank.getWinningOrder());
 	}
 }
 

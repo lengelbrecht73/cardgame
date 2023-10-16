@@ -1,16 +1,18 @@
 package za.co.advance.cardgame;
 
+import java.util.Arrays;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import za.co.advance.cardgame.definition.GameVariant;
+import za.co.advance.cardgame.exception.MoreThanTwoOfSameRankException;
 
 @SpringBootApplication
 public class CardGameApplication {
 
 	static FiveCardApplication fiveCardGame = new FiveCardApplication();
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws MoreThanTwoOfSameRankException{
 	
 		if (args.length == 0) {
 			System.out.println("Please provide the required argument to specify the game variant.");
@@ -24,6 +26,8 @@ public class CardGameApplication {
 			Enum.valueOf(GameVariant.class,args[0]);
 		}catch (IllegalArgumentException ex){
 			System.out.println("Your game variant is not known to us.");
+			System.out.println("Please try one of the following:");
+			Arrays.toString(GameVariant.values());
 		}
 
 		if(Enum.valueOf(GameVariant.class,args[0]).equals(GameVariant.BADUGI)){
