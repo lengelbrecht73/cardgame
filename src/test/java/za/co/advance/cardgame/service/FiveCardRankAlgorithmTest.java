@@ -1,27 +1,19 @@
-package za.co.advance.fivecard.service;
+package za.co.advance.cardgame.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
-
 import za.co.advance.cardgame.algorithm.FiveCardRankAlgorithm;
-import za.co.advance.cardgame.definition.HandRank;
 import za.co.advance.cardgame.definition.HandRankFiveCard;
 import za.co.advance.cardgame.definition.Rank;
 import za.co.advance.cardgame.definition.Suit;
 import za.co.advance.cardgame.entity.Card;
 import za.co.advance.cardgame.entity.Hand;
-import za.co.advance.cardgame.service.DealerService;
 
 class FiveCardRankAlgorithmTest {
-
-    @Autowired
-    DealerService dealerService;
     
     @Test
     void testStraightFlush(){

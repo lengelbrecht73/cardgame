@@ -45,24 +45,20 @@ public class DealerService {
         for (Suit suit: allSuitsInDeck){
             for (Rank rank: allRanksInDeck){
                 //Add cards
-                cardNumber = addCardOfSuitAndRank(cards, cardNumber, suit, rank, includeJokerCards);
+                cardNumber = addCardOfSuitAndRankExcludingJokers(cards, cardNumber, suit, rank);
             }         
         }
-
+        
         if (includeJokerCards){
             Card jokerCard = new Card(Suit.JOKER, null);
             //jokerCard is assumed to not have a rank - for now anycase
 
             //There are usually TWO jokerCards
             cards[cardNumber++] = jokerCard;
+            cards[cardNumber++] = jokerCard;
         }
         
         deckOfCards.setDeckOfCards(Arrays.asList(cards));
-        for (Card card: deckOfCards.getDeckOfCards()){
-			if (card.getRank() != null){
-				log.debug(card.getSuit().getDescription() + " " + card.getRank().name());
-			}
-		}
         return deckOfCards;
     }
 
@@ -94,9 +90,9 @@ public class DealerService {
         return handDealt;
     }
     
-    private int addCardOfSuitAndRank(Card[] cards, int cardNumber, Suit suit, Rank rank, boolean includeJokerCards) {
+    private int addCardOfSuitAndRankExcludingJokers(Card[] cards, int cardNumber, Suit suit, Rank rank) {
        
-        if (!includeJokerCards && !suit.equals(Suit.JOKER)){
+        if (!suit.equals(Suit.JOKER)){
             Card card = new Card(suit, rank);
             cards[cardNumber] = card;
             cardNumber++;
