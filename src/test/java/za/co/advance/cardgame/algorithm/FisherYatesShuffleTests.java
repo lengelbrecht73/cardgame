@@ -11,7 +11,7 @@ import za.co.advance.cardgame.enums.Suit;
 
 class FisherYatesShuffleTests {
      
-   @Test
+    @Test
     void testShuffle() {
 
         List<Suit> allSuitsInDeck = Arrays.asList(Suit.values());

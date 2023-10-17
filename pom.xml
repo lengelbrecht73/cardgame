@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>za.co.advance</groupId>
 	<artifactId>cardgame</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1-GA</version>
 	<name>cardgame</name>
 	<description>Poker card game variations</description>
 	<properties>

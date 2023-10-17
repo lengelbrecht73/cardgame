@@ -2,6 +2,7 @@ package za.co.advance.cardgame.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
@@ -16,13 +17,13 @@ import za.co.advance.cardgame.entity.Hand;
 
 
 @SpringBootTest(classes = DealerService.class)
-public class DealerServiceTests {
+class DealerServiceTests {
 
     @Autowired
     DealerService dealerService = new DealerService();
     
     @Test
-    public void testCollectCardsInDeckWithoutJokers() {
+    void testCollectCardsInDeckWithoutJokers() {
         // Create a new deck of cards.
         Deck deck = dealerService.collectCardsInDeck(false);
 
@@ -38,7 +39,7 @@ public class DealerServiceTests {
     }
 
     @Test
-    public void testCollectCardsInDeckJokers() {
+    void testCollectCardsInDeckJokers() {
         // Create a new deck of cards.
         Deck deck = dealerService.collectCardsInDeck(true);
 
@@ -53,7 +54,7 @@ public class DealerServiceTests {
     }
 
     @Test
-    public void testShuffleDeck() {
+    void testShuffleDeck() {
         // Create a new deck of cards.
         Deck deck = dealerService.collectCardsInDeck(false);
 
@@ -61,11 +62,11 @@ public class DealerServiceTests {
         List<Card> shuffledDeck = dealerService.shuffleDeck(deck);
 
         // Check that the deck is shuffled.
-        assertFalse(shuffledDeck.equals(deck.getDeckOfCards()));
+        assertNotEquals(shuffledDeck,deck.getDeckOfCards());
     }
 
     @Test
-    public void testDealHand() {
+    void testDealHand() {
         // Create a new deck of cards.
         Deck deck = dealerService.collectCardsInDeck(false);
 
