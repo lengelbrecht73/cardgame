@@ -1,7 +1,7 @@
-package za.co.advance.cardgame.definition;
+package za.co.advance.cardgame.enums;
 
 //Still to be implemented in version 2
-public enum HandRankBadugi implements HandRank {
+public enum HandRankBadugi implements HandRankInterface {
 
     //None, as it is not yet required to be implemented
     NONE("NONE", "None", 1);

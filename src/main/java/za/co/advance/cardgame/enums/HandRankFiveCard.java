@@ -1,6 +1,6 @@
-package za.co.advance.cardgame.definition;
+package za.co.advance.cardgame.enums;
 
-public enum HandRankFiveCard implements HandRank {
+public enum HandRankFiveCard implements HandRankInterface {
 
     STRAIGHT_FLUSH("Straight Flush", "Consists of five cards in order of the same Suit.", 1),
     FOUR_OF_A_KIND("Four of a Kind", "Consists four cards of the same Rank and another card.", 2),

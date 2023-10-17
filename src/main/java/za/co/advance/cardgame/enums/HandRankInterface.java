@@ -1,6 +1,6 @@
-package za.co.advance.cardgame.definition;
+package za.co.advance.cardgame.enums;
 
-public interface HandRank {
+public interface HandRankInterface {
 
     String getHand();
     String getDescription();

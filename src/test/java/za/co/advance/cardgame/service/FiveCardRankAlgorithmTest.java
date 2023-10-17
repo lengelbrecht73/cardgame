@@ -5,16 +5,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import za.co.advance.cardgame.algorithm.FiveCardRankAlgorithm;
-import za.co.advance.cardgame.definition.HandRankFiveCard;
-import za.co.advance.cardgame.definition.Rank;
-import za.co.advance.cardgame.definition.Suit;
 import za.co.advance.cardgame.entity.Card;
 import za.co.advance.cardgame.entity.Hand;
+import za.co.advance.cardgame.enums.HandRankFiveCard;
+import za.co.advance.cardgame.enums.Rank;
+import za.co.advance.cardgame.enums.Suit;
 
 class FiveCardRankAlgorithmTest {
-    
+
     @Test
     void testStraightFlush(){
         List<Card> cards = new ArrayList<>();

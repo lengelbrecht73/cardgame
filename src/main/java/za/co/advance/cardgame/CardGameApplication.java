@@ -1,10 +1,8 @@
 package za.co.advance.cardgame;
 
-import java.util.Arrays;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import za.co.advance.cardgame.definition.GameVariant;
+import za.co.advance.cardgame.enums.GameVariant;
 import za.co.advance.cardgame.exception.MoreThanTwoOfSameRankException;
 
 @SpringBootApplication

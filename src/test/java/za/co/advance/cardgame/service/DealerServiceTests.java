@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import za.co.advance.cardgame.definition.Suit;
 import za.co.advance.cardgame.entity.Card;
 import za.co.advance.cardgame.entity.Deck;
 import za.co.advance.cardgame.entity.Hand;

@@ -3,11 +3,11 @@ package za.co.advance.cardgame;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import za.co.advance.cardgame.algorithm.FiveCardRankAlgorithm;
-import za.co.advance.cardgame.definition.GameVariant;
-import za.co.advance.cardgame.definition.HandRank;
 import za.co.advance.cardgame.entity.Card;
 import za.co.advance.cardgame.entity.Deck;
 import za.co.advance.cardgame.entity.Hand;
+import za.co.advance.cardgame.enums.GameVariant;
+import za.co.advance.cardgame.enums.HandRankInterface;
 import za.co.advance.cardgame.exception.MoreThanTwoOfSameRankException;
 import za.co.advance.cardgame.service.DealerService;
 
@@ -32,7 +32,7 @@ public class FiveCardApplication {
 		
 		//Determine his highest hand rank
 		FiveCardRankAlgorithm rankAlgorithm = new FiveCardRankAlgorithm();
-		HandRank highestHandRank = rankAlgorithm.determineHighestPokerRank(handDealt);
+		HandRankInterface highestHandRank = rankAlgorithm.determineHighestPokerRank(handDealt);
 		log.debug("Highest hand rank: " + highestHandRank.getHand());
 		System.out.println("\n Highest hand rank: " + highestHandRank.getHand() +  " with a rank score of " + highestHandRank.getWinningOrder() + ".");
 	}

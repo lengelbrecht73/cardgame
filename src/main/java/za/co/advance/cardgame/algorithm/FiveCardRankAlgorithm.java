@@ -10,17 +10,17 @@ import java.util.Map.Entry;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import za.co.advance.cardgame.definition.HandRank;
-import za.co.advance.cardgame.definition.HandRankFiveCard;
-import za.co.advance.cardgame.definition.Rank;
-import za.co.advance.cardgame.definition.Suit;
 import za.co.advance.cardgame.entity.Card;
 import za.co.advance.cardgame.entity.Hand;
+import za.co.advance.cardgame.enums.HandRankFiveCard;
+import za.co.advance.cardgame.enums.HandRankInterface;
+import za.co.advance.cardgame.enums.Rank;
+import za.co.advance.cardgame.enums.Suit;
 import za.co.advance.cardgame.exception.MoreThanTwoOfSameRankException;
 
 @Slf4j
 @Getter
-public class FiveCardRankAlgorithm implements HandRankAlgorithm{
+public class FiveCardRankAlgorithm implements HandRankAlgorithmInterface{
 
     private Map<String,Integer> numberOfKindMap = new HashMap<>(); 
     private boolean sameSuit = false; // For instance all hearts
@@ -32,7 +32,7 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
     private List<Card> cardsInHand = new ArrayList<>();
 
     @Override
-    public HandRank determineHighestPokerRank(Hand hand) {
+    public HandRankInterface determineHighestPokerRank(Hand hand) {
  
        //Let's sort the cards once
        //Initiliase the private variables for re-use in the logic
@@ -47,7 +47,7 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithm{
        return determinePokerHand();  
     }
 
-    private HandRank determinePokerHand() {
+    private HandRankInterface determinePokerHand() {
 
         //The order of checking is important. A four of a kind
         //could give a two pair as well, but a two pair could not be a four

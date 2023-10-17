@@ -12,7 +12,7 @@ import za.co.advance.cardgame.entity.Card;
     2. For each card visited, replace it with a random card between 0 and n - 1 
 */
 //Implementing an interface makes it easier to replace the shuffle algorithm
-public class FisherYatesShuffle implements ShuffleAlgorithm{
+public class FisherYatesShuffle implements ShuffleAlgorithmInterface{
 
     @Override
     public List<Card> shuffle(List<Card> cards) {

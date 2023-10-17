@@ -1,4 +1,4 @@
-package za.co.advance.cardgame.definition;
+package za.co.advance.cardgame.enums;
 
 import lombok.Getter;
 

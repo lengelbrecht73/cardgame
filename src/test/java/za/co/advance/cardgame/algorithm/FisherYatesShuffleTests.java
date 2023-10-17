@@ -1,20 +1,13 @@
 package za.co.advance.cardgame.algorithm;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
-
-import za.co.advance.cardgame.algorithm.FisherYatesShuffle;
-import za.co.advance.cardgame.definition.Rank;
-import za.co.advance.cardgame.definition.Suit;
 import za.co.advance.cardgame.entity.Card;
+import za.co.advance.cardgame.enums.Rank;
+import za.co.advance.cardgame.enums.Suit;
 
 class FisherYatesShuffleTests {
      
