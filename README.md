@@ -6,7 +6,7 @@
 3. Linux
 <br/><br/>
 
-##How to build and run
+## How to build and run
 1. The project can be build by running the build.sh command:
 <br/>
 scripts/build.sh
@@ -17,7 +17,7 @@ scripts/run.sh
 Please note that the run.sh script will check if the target folder exists. If not, it will
 run the build.sh command first.
 
-##Some important notes
+## Some important notes
 <br/>
 1. The Fisher-Yates shuffling algorithm is currently implemented to shuffle the cards. The Collection
 shuffle is also included, but not used. It is only for the purpose to replace the one with the other if
