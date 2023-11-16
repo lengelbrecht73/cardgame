@@ -95,23 +95,28 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithmInterface{
        
         boolean isInOrder = true; // True until proven false. :-)
 
+        // What if there are less than 2 cards?
+        if (cardsInHand.size() < 2){
+            return isInOrder;
+        }
+
         // There is probably a more elegant way of checking the order
         // Will refactor at a later stage
         for (int i = 0; i < cardsInHand.size() - 1; i++) {
             Card currentCard = cardsInHand.get(i);
             Card nextCard = cardsInHand.get(i + 1);
             
-            if (currentCard.getRank().getOrder() != nextCard.getRank().getOrder() - 1) {
-                isInOrder = false;
-            } else {
-                // But what about the ACE which can also be a 1?
-                if (currentCard.getRank().getOrder() == Rank.ACE.getOrder()
-                        && (nextCard.getRank().getOrder() == Rank.DEUCE.getOrder())) {
-                    isInOrder = true;
-                }
-            }           
+            if (currentCard.getRank().getOrder() != nextCard.getRank().getOrder() - 1 &&  
+                (!(currentCard.getRank() == Rank.ACE && nextCard.getRank() == Rank.DEUCE))) { //Also check forAce
+                    isInOrder = false;       
+            }
+            if (! isInOrder) {  // Don't loop any further. The cards are out of order
+                return false;
+            }         
         }
+
         return isInOrder;
+       
     }
 
     //These values in this methods can be re-used without having to check for them for every hand evaluation.
