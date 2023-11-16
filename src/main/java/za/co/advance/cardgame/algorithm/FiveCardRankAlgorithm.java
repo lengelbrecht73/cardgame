@@ -108,11 +108,8 @@ public class FiveCardRankAlgorithm implements HandRankAlgorithmInterface{
             
             if (currentCard.getRank().getOrder() != nextCard.getRank().getOrder() - 1 &&  
                 (!(currentCard.getRank() == Rank.ACE && nextCard.getRank() == Rank.DEUCE))) { //Also check forAce
-                    isInOrder = false;       
+                    return false; // Don't loop any further. The cards are out of order
             }
-            if (! isInOrder) {  // Don't loop any further. The cards are out of order
-                return false;
-            }         
         }
 
         return isInOrder;
